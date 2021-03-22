@@ -9,21 +9,6 @@ import openpyxl
 alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 Statsheadercells = ["Team", "SRS", "SOS", "Goals For", "Goals Against", "Total shots", "Shot %", "Save %"]
 headercells = ["Away", "Away Team Pts", "Home", "Home Team Pts", "Margin", "AwaySRS", "HomeSRS"]
-def GetSRS(x,y, count):
-    for x in range(x, y):
-        TeamcellNum = "A" + str(count)
-        elemTeam = driver.find_element_by_xpath(
-            "/html/body/div[2]/div[5]/div[2]/div/div/div[2]/table/tbody/tr[" + str(x) + "]/th")
-        TeamCell = wb.active[TeamcellNum]
-        TeamCell.value = elemTeam.text
-
-        TeamcellNumVal = "C" + str(count)
-        elemSRS = driver.find_element_by_xpath(
-            "/html/body/div[2]/div[5]/div[2]/div/div/div[2]/table/tbody/tr[" + str(x) + "]/td[9]")
-        TeamcellNumVal = wb.active[TeamcellNumVal]
-        TeamcellNumVal.value = float(elemSRS.text)
-        count = count + 1
-    return count
 
 def WritetoExcell(x, teamindex, cellLetter, cellCount, floater):
     elemTeam = driver.find_element_by_xpath(
@@ -52,19 +37,6 @@ elem.click()
 time.sleep(1)
 ### Fill in data
 count = 1
-#count = GetSRS(2,10, count)
-#count = GetSRS(11,19, count)
-#count = GetSRS(20,27, count)
-#count = GetSRS(28,36, count)
-
-#/html/body/div[2]/div[5]/div[3]/div[4]/table/tbody/tr[1]/td[1] team
-#/html/body/div[2]/div[5]/div[3]/div[4]/table/tbody/tr[1]/td[13] srs
-#/html/body/div[2]/div[5]/div[3]/div[4]/table/tbody/tr[1]/td[14] sos
-#/html/body/div[2]/div[5]/div[3]/div[4]/table/tbody/tr[1]/td[15] goals for
-#/html/body/div[2]/div[5]/div[3]/div[4]/table/tbody/tr[1]/td[16] goals against
-#/html/body/div[2]/div[5]/div[3]/div[4]/table/tbody/tr[1]/td[27] total shots
-#/html/body/div[2]/div[5]/div[3]/div[4]/table/tbody/tr[1]/td[28] shot %
-#/html/body/div[2]/div[5]/div[3]/div[4]/table/tbody/tr[1]/td[30] save %
 
 ### Headers
 for x in range(1,9):
@@ -123,12 +95,6 @@ assert "NHL Results" in driver.title
 ### Navigation
 time.sleep(1)
 
-#/html/body/div[6]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div[1]/div/div/div[2]/div[2]
-#/html/body/div[6]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div[1]/div/div/div[116]/div[1]
-#/html/body/div[6]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div[1]/div/div/div[203]/div[1]
-#/html/body/div[6]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div[1]/div/div/div[303]/div[1]
-#elem = driver.find_element_by_xpath("/html/body/div[6]/div[1]/div/div[1]/div[2]/div[4]/div[2]/div[1]/div/div/a")
-#elem.get_attribute("href").click()
 ### Creat new excell sheet
 ws2 = wb.create_sheet("Schedule")
 wb.active = ws2
@@ -137,8 +103,6 @@ for x in range(1,8):
     headercellnum = alphabet[x-1] + str(1)
     headercell = wb.active[headercellnum]
     headercell.value = headercells[x-1]
-
-
 
 ### Fill table
 teamindex = 2
