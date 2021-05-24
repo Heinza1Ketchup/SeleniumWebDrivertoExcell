@@ -72,7 +72,7 @@ driver = webdriver.Chrome()
 driver.get("https://www.google.com")
 assert "Google" in driver.title
 
-### Direct to NHL standings page
+### Direct to google search page
 que=driver.find_element_by_xpath("//input[@name='q']")
 que.send_keys("NHL")
 que.send_keys(Keys.RETURN)
